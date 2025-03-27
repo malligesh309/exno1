@@ -21,121 +21,114 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
-```
-from google.colab import drive
-drive.mount('/content/drive')
-```
-![image](https://github.com/user-attachments/assets/c0c28269-72cf-42bc-8ed2-45aff3794814)
+![Screenshot 2025-03-08 180648](https://github.com/user-attachments/assets/64cb2e74-0a5c-4f7d-b987-473f3f943243)
 
-```
-import pandas as pd
-#READ CSV FILE HERE
-df = pd.read_csv("/content/drive/MyDrive/Data_Science/iris.csv")
-```
-```
-#DISPLAY THE INFORMATION ABOUT CSV AND RUN THE BASIC DATA ANALYSIS FUNCTIONS
-df.info()
-```
-![image](https://github.com/user-attachments/assets/25e55767-d185-435e-96d8-019574bc11d7)
+![Screenshot 2025-03-08 180705](https://github.com/user-attachments/assets/9342e8ef-0177-4522-9166-343f520ba736)
 
-```
-#CHECK OUT NULL VALUES IN DATA SET USING FUNCTION
-df.isnull()
-```
-![image](https://github.com/user-attachments/assets/b630094e-1fb9-4fae-9659-44d21741fcca)
+![Screenshot 2025-03-08 180655](https://github.com/user-attachments/assets/bb8bbce7-9854-4e03-b8b5-0603629079bf)
 
-```
-#DISPLAY THE SUM ON NULL VALUES IN EACH ROWS
-df.isnull().sum()
-```
-![image](https://github.com/user-attachments/assets/d2baa298-2f8f-4d24-8ce0-18d9b0cb73e2)
+![Screenshot 2025-03-08 180713](https://github.com/user-attachments/assets/ccff97a5-54cf-424f-8fbc-7d5f051d876b)
 
-```
-#DROP NULL VALUES
-df.dropna()
-```
-![image](https://github.com/user-attachments/assets/57487556-9d55-4946-98f6-282786099316)
+![Screenshot 2025-03-08 180721](https://github.com/user-attachments/assets/4c11bdaf-ca1a-426f-92c7-94a056a1cf58)
 
-```
-#FILL NULL VALUES WITH CONSTANT VALUE "O"
-df.fillna(0)
-```
-![image](https://github.com/user-attachments/assets/85873991-c861-4ba8-8425-32c2526565aa)
+![Screenshot 2025-03-08 180731](https://github.com/user-attachments/assets/a61d8d92-285e-4370-9ee0-9972140fbd3c)
 
-```
-#CALCULATE MEAN VALUE OF A COLUMN AND FILL IT WITH NULL VALUES
-value = df['sepal_length'].mean()
-df['sepal_length'].fillna(value ,inplace = True)
-df
-```
-![image](https://github.com/user-attachments/assets/afde12be-433c-4a84-9c61-aa4543247ed4)
+![Screenshot 2025-03-08 180737](https://github.com/user-attachments/assets/25d3d3fa-31b7-46ed-ab41-c3e31bca1aac)
 
-```
-#DROP NULL VALUES
-df.dropna()
-```
-![image](https://github.com/user-attachments/assets/e6533ba5-c4c9-40db-a177-80129a1238ef)
 
-```
-import pandas as pd
-import seaborn as sns
-age=[1,3,28,27,25,92,30,39,40,50,26,24,29,94]
-af=pd.DataFrame(age)
-af
-```
-![image](https://github.com/user-attachments/assets/7f935948-88b7-4f00-bfda-7a0283dff4fb)
+![Screenshot 2025-03-08 180746](https://github.com/user-attachments/assets/a23b77c1-e4a5-4543-9d18-d78737be6d14)
 
-```
-#USE BOXPLOT FUNCTION HERE TO DETECT OUTLIER
-sns.boxplot(x = df["sepal_length"])
-```
-![image](https://github.com/user-attachments/assets/7397ef48-a657-4d03-a55c-c1b106137b3c)
 
-```
-import pandas as pd
+![Screenshot 2025-03-08 180751](https://github.com/user-attachments/assets/47177ae2-6e03-4534-949a-475eeba95162)
 
-def detect_outliers(df, column):
-    Q1 = df[column].quantile(0.25)
-    Q3 = df[column].quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
-    
-    print(f"Outliers in {column}:\n", outliers)
-    return outliers
+![Screenshot 2025-03-08 180800](https://github.com/user-attachments/assets/900c6858-6c1f-4137-a9e9-fd11647c31ed)
 
-# Example usage:
-outliers_sepal = detect_outliers(df, 'sepal_length')
-outliers_petal = detect_outliers(df, 'petal_length')
-```
-![image](https://github.com/user-attachments/assets/357e328c-70b7-4a79-a5a1-323406a7a0d2)
 
-```
-from scipy import stats #STATS METHOD IS USED TO IMPLEMENT Z SCORE METHOD
-data=[1,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,60,63,66,69,72,75,78,81,84,87,90,93,96,99,158]
-df=pd.DataFrame(data,columns = ["Values"])
-#USE BOXPLOT FUNCTION HERE TO DETECT OUTLIER
-sns.boxplot(data)
-```
-![image](https://github.com/user-attachments/assets/960e8b06-6a3c-4f1d-b9ba-b275f56d17f2)
+![Screenshot 2025-03-08 180806](https://github.com/user-attachments/assets/b9267c2f-4eb4-42ab-8f29-97f0feb50fdd)
 
-```
-#PERFORM Z SCORE METHOD AND DETECT OUTLIER VALUES
-df['Z-score'] = stats.zscore(df['Values'])
-#REMOVE OUTLIERS
-threshold = 3
-df_cleaned = df[abs(df['Z-score']) <= threshold].drop(columns=['Z-score'])
-print(df_cleaned)
-```
-![image](https://github.com/user-attachments/assets/be7eefda-66ce-44ed-8626-0a1d819887c6)
 
-```
-#USE BOXPLOT FUNCTION HERE TO CHECK OUTLIER IS REMOVED
-sns.boxplot(x=df_cleaned["Values"])
-```
-![image](https://github.com/user-attachments/assets/71c2f73c-5339-4222-bd6d-b3cfe1694c69)
+![Screenshot 2025-03-08 180812](https://github.com/user-attachments/assets/f9c16732-10f1-424b-bcc9-6579b284a364)
+
+
+![Screenshot 2025-03-08 180824](https://github.com/user-attachments/assets/ebe7144e-4574-48cd-a497-5ef1177ce4b8)
+
+
+![Screenshot 2025-03-08 180832](https://github.com/user-attachments/assets/7f990a95-dfae-43b7-8eca-5bf7555d16c9)
+
+
+![Screenshot 2025-03-08 180850](https://github.com/user-attachments/assets/df4cf56d-63df-4477-8f6e-d3762bd9ecaa)
+
+![Screenshot 2025-03-08 180901](https://github.com/user-attachments/assets/dab151c4-552d-4e42-8582-87fcbcf802bf)
+
+
+![Screenshot 2025-03-08 180907](https://github.com/user-attachments/assets/270e1609-ef99-4e81-a33b-e8a88e5c29d8)
+
+![Screenshot 2025-03-08 180912](https://github.com/user-attachments/assets/6af73d11-b024-43ce-aadc-1c42f9f2a2e3)
+
+
+![Screenshot 2025-03-08 180920](https://github.com/user-attachments/assets/25d3d41d-4155-4fc1-9e04-1e7376a9faf8)
+
+![Screenshot 2025-03-08 180927](https://github.com/user-attachments/assets/233b67b5-b1c5-42e1-8704-73942e3fdcab)
+
+
+
+![Screenshot 2025-03-08 180935](https://github.com/user-attachments/assets/a48d6bba-f750-4b31-b96b-22b5b807d3f7)
+
+
+![Screenshot 2025-03-08 180952](https://github.com/user-attachments/assets/f3f688ce-b274-4a23-b473-ff79f2354a98)
+
+
+
+![Screenshot 2025-03-08 181027](https://github.com/user-attachments/assets/5676f15a-f845-4f87-8e12-e74385673042)
+
+
+![Screenshot 2025-03-08 181035](https://github.com/user-attachments/assets/211d3bc6-7e1c-4067-9d2a-e21446463df8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Result
-Thus, the Data Cleaning Process is executed Successfully.
+
+Thus the given data  successfully performed data cleaning and saved the cleaned data to a file.
+
+
